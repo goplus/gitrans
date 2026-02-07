@@ -1,5 +1,11 @@
 dryRun true
 
-onFile "**/*.go*", f => {
+onFile "**/*.go", f => {
+    if f.Name == "pattern.go" {
+        f.content nil
+    }
+}
+
+onFile "**/*.gox", f => {
     f.content nil
 }
