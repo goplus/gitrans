@@ -70,16 +70,16 @@ mkdir -p .gitrans
 cd .gitrans
 ```
 
-**Option B: Use `.github` directory**
+**Option B: Use `.github/gitrans` directory**
 ```bash
-mkdir -p .github
-cd .github
+mkdir -p .github/gitrans
+cd .github/gitrans
 ```
 
 ### Step 4: Initialize Go Module
 
 ```bash
-# Inside .gitrans or .github directory
+# Inside .gitrans or .github/gitrans directory
 go mod init git_patch
 
 # Install gitrans dependency
@@ -90,7 +90,7 @@ This will create `go.mod` and `go.sum` files with gitrans as a dependency.
 
 ### Step 5: Create Patch Script
 
-Create `git_patch.gox` in the `.gitrans` or `.github` directory:
+Create `git_patch.gox` in the `.gitrans` or `.github/gitrans` directory:
 
 ```go
 // TODO
@@ -101,7 +101,7 @@ Create `git_patch.gox` in the `.gitrans` or `.github` directory:
 Execute the patch script:
 
 ```bash
-# Inside .gitrans or .github directory
+# Inside .gitrans or .github/gitrans directory
 xgo run .
 ```
 
@@ -159,7 +159,7 @@ git push origin main
 git checkout foo
 
 # Run gitrans to reapply patches
-cd .gitrans  # or .github
+cd .gitrans  # or .github/gitrans
 xgo run .
 cd ..
 ```
@@ -252,7 +252,7 @@ A: Yes, commit both the patch script (`.gitrans/git_patch.gox`) and the generate
 
 ## Support
 
-- **Issues**: [[GitHub Issues](https://github.com/goplus/gitrans/issues)](https://github.com/goplus/gitrans/issues)
+- **Issues**: [GitHub Issues](https://github.com/goplus/gitrans/issues)
 
 ---
 
