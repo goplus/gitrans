@@ -1,11 +1,21 @@
 dryRun true
 
 onFile "**/*.go", f => {
-    if f.Name == "pattern.go" {
-        f.content nil
-    }
+	if f.Name == "pattern.go" {
+		f.content nil
+	}
 }
 
 onFile "**/*.gox", f => {
-    f.content nil
+	f.content "abc"
+}
+
+onFile "**/*.gox", f => {
+	old := string(f.content!)
+    echo old
+    f.content old + "efg"
+}
+
+onFile "**/*.gox", f => {
+	echo string(f.content!)
 }

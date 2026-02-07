@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"unsafe"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
@@ -36,10 +37,30 @@ type File struct {
 	opener
 }
 
+// Content returns the content of the file as a byte slice.
+func (p *File) Content__0() ([]byte, error) {
+	switch o := p.opener.(type) {
+	case *bytesOpener:
+		return o.data, nil
+	default:
+		r, err := o.Reader()
+		if err != nil {
+			return nil, err
+		}
+		defer r.Close()
+		return io.ReadAll(r)
+	}
+}
+
 // Content sets the content of the file from a byte slice.
-func (p *File) Content(b []byte) {
+func (p *File) Content__1(b []byte) {
 	p.Size = int64(len(b))
 	p.opener = &bytesOpener{data: b}
+}
+
+// Content sets the content of the file from a string.
+func (p *File) Content__2(s string) {
+	p.Content__1(unsafe.Slice(unsafe.StringData(s), len(s)))
 }
 
 // Unchanged returns true if the file has NOT been modified.
