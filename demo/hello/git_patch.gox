@@ -1,0 +1,5 @@
+dryRun true
+
+onFile "**/*.go*", f => {
+    f.content nil
+}

@@ -1,5 +1,9 @@
 package gitrans
 
+const (
+	XGoPackage = true
+)
+
 // -----------------------------------------------------------------------------
 
 type handler struct {
@@ -11,6 +15,7 @@ type handler struct {
 type App struct {
 	handlers []handler
 	upstream string // upstream branch
+	noExec   bool   // dry run
 }
 
 // iAppProto represents the interface for application prototype.
@@ -27,6 +32,11 @@ func (p *App) initApp() *App {
 // From sets the upstream branch.
 func (p *App) From(upstreamBranch string) {
 	p.upstream = upstreamBranch
+}
+
+// DryRun sets the dry run mode.
+func (p *App) DryRun(b bool) {
+	p.noExec = b
 }
 
 // OnFile registers a callback to be executed on each file matching the pattern.
