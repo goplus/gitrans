@@ -3,7 +3,7 @@ package gitrans
 // -----------------------------------------------------------------------------
 
 type handler struct {
-	pattern  string
+	pattern  []*patternImpl
 	callback func(f *File)
 }
 
@@ -30,9 +30,17 @@ func (p *App) From(upstreamBranch string) {
 }
 
 // OnFile registers a callback to be executed on each file matching the pattern.
-func (p *App) OnFile(pattern string, callback func(f *File)) {
+func (p *App) OnFile__0(pattern string, callback func(f *File)) {
 	p.handlers = append(p.handlers, handler{
-		pattern:  pattern,
+		pattern:  []*patternImpl{parsePattern(pattern)},
+		callback: callback,
+	})
+}
+
+// OnFile registers a callback to be executed on each file matching any of the patterns.
+func (p *App) OnFile__1(patterns []string, callback func(f *File)) {
+	p.handlers = append(p.handlers, handler{
+		pattern:  parsePatterns(patterns),
 		callback: callback,
 	})
 }

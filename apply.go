@@ -52,10 +52,6 @@ func (p *bytesOpener) Reader() (io.ReadCloser, error) {
 
 // -----------------------------------------------------------------------------
 
-func matchPattern(pattern, name string) bool {
-	return true
-}
-
 func writeFile(name string, r opener) (err error) {
 	rc, err := r.Reader()
 	if err != nil {
